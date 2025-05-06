@@ -3,178 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>E-Books</title>
-    <style>
-        /* Container styling */
-        .container{
-            width: 500px;
-            height: auto;
-            background: linear-gradient(135deg, #e0e0e0, #ffffff); /* Soft gradient */
-            padding: 30px;
-            margin: 20px auto;
-            text-align: center;
-            border: 10px;
-            border-radius: 20px;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
-        }
-
-        /* General Input and Label Styling */
-        .input {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .input label {
-            font-weight: bold;
-            font-size: 16px;
-            color: #333;
-            display: block;
-            margin-bottom: 5px; /* Spacing between label and input */
-        }
-
-        .input input {
-            width: 100%;
-            height: 40px;
-            border-radius: 10px;
-            padding: 0 10px;
-            font-size: 16px;
-            border: 1px solid #ccc; /* Light border color */
-            transition: border 0.3s ease;
-        }
-
-        .input input:focus {
-            border-color: #5a9bfc; /* Blue border on focus */
-            outline: none; /* Remove outline */
-        }
-
-        /* Error message styling */
-        span {
-            color: red;
-            font-weight: bold;
-            font-size: 14px;
-            display: block; /* Display errors as block to avoid overlap */
-            margin-top: 5px;
-        }
-
-        /* Submit button styling */
-        input[type="submit"] {
-            background-color: #A9A9A9;
-            color: white;
-            border: none;
-            width: 200px;
-            border-radius: 25px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        /* Submit button hover effect */
-        input[type="submit"]:hover {
-            background-color: #4a8bd2;
-        }
-
-        /* Heading styling */
-        h3 {
-            text-align: center;
-            text-decoration: underline;
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-            font-size: 40px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        /* Responsive Design for mobile devices */
-        @media (max-width: 600px) {
-            .container {
-                width: 90%;
-            }
-        }
-
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gradient-to-br from-gray-100 to-white min-h-screen flex items-center justify-center p-4">
 
-    <h3>Add a Book:</h3>
-    <div class="container">
+    <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8">
+        <h3 class="text-4xl font-bold text-center text-blue-700 mb-6 underline">Add a Book</h3>
 
-        <div class="add">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcCFnRzUbPw4-VN37pRyEjAmaje8tJfT_sZEEjqBsoJ5IIUqM-avb50fRUHwZYrYN9T_I&usqp=CAU" alt="" width="80px"><br>
+        <div class="flex justify-center mb-6">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcCFnRzUbPw4-VN37pRyEjAmaje8tJfT_sZEEjqBsoJ5IIUqM-avb50fRUHwZYrYN9T_I&usqp=CAU" 
+                 alt="Book Icon" 
+                 class="w-20 h-20 object-contain">
         </div>
 
-        <form action="{{url('/books/store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ url('/books/store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
             @csrf
 
-            <div class="input">
-                <label for="image">Image:</label>
-                <input id="image" value="{{old('image')}}" name="image" type="file" placeholder="Choose an image">
-                @error('image')
-                    <span>{{$message}}</span>
-                @enderror
+            <!-- Image -->
+            <div>
+                <label for="image" class="block font-semibold text-gray-700 mb-1">Image:</label>
+                <input id="image" name="image" type="file" class="w-full border border-gray-300 p-2 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                @error('image') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
-            <div class="input">
-                <label for="title">Title:</label>
-                <input id="title" value="{{old('title')}}" name="title" type="text" placeholder="Enter the title">
-                @error('title')
-                    <span>{{$message}}</span>
-                @enderror
+            <!-- Title -->
+            <div>
+                <label for="title" class="block font-semibold text-gray-700 mb-1">Title:</label>
+                <input id="title" name="title" type="text" value="{{ old('title') }}" placeholder="Enter the title"
+                       class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                @error('title') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
-            <div class="input">
-                <label for="price">Price:</label>
-                <input id="price" value="{{old('price')}}" name="price" type="number" placeholder="Enter the price">
-                @error('price')
-                    <span>{{$message}}</span>
-                @enderror
+            <!-- Price -->
+            <div>
+                <label for="price" class="block font-semibold text-gray-700 mb-1">Price:</label>
+                <input id="price" name="price" type="number" value="{{ old('price') }}" placeholder="Enter the price"
+                       class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                @error('price') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
-            <div class="input">
-                <label for="categorie">Category:</label>
-                <input id="categorie" value="{{old('categorie')}}" name="categorie" type="text" placeholder="Enter the category">
-                @error('categorie')
-                    <span>{{$message}}</span>
-                @enderror
+            <!-- Category -->
+            <div>
+                <label for="categorie" class="block font-semibold text-gray-700 mb-1">Category:</label>
+                <input id="categorie" name="categorie" type="text" value="{{ old('categorie') }}" placeholder="Enter the category"
+                       class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                @error('categorie') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
-            <div class="input">
-                <label for="NombrePages">NombrePages:</label>
-                <input id="NombrePages" value="{{old('NombrePages')}}" name="NombrePages" type="number" placeholder="Enter the NbPages">
-                @error('NombrePages')
-                    <span>{{$message}}</span>
-                @enderror
+            <!-- Number of Pages -->
+            <div>
+                <label for="NombrePages" class="block font-semibold text-gray-700 mb-1">Number of Pages:</label>
+                <input id="NombrePages" name="NombrePages" type="number" value="{{ old('NombrePages') }}" placeholder="Enter the number of pages"
+                       class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                @error('NombrePages') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
-            <div class="input">
-                <label for="reviews">Reviews:</label>
-                <input id="reviews" value="{{old('reviews')}}" name="reviews" type="number" placeholder="Rate Us">
-                @error('reviews')
-                    <span>{{$message}}</span>
-                @enderror
+            <!-- Reviews -->
+            <div>
+                <label for="reviews" class="block font-semibold text-gray-700 mb-1">Reviews:</label>
+                <input id="reviews" name="reviews" type="number" value="{{ old('reviews') }}" placeholder="Rate us"
+                       class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                @error('reviews') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
-            <div class="input">
-                <label for="description">Description:</label>
-                <input id="description" value="{{old('description')}}" name="description" type="text" placeholder="Provide a short description">
-                @error('description')
-                    <span>{{$message}}</span>
-                @enderror
+            <!-- Description -->
+            <div>
+                <label for="description" class="block font-semibold text-gray-700 mb-1">Description:</label>
+                <input id="description" name="description" type="text" value="{{ old('description') }}" placeholder="Short description"
+                       class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                @error('description') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
-            <div class="input">
-                <label for="link">Book Link:</label>
-                <input id="link" value="{{ old('link') }}" name="link" type="url" placeholder="https://example.com/book">
-                @error('link')
-                    <span>{{ $message }}</span>
-                @enderror
+            <!-- Link -->
+            <div>
+                <label for="link" class="block font-semibold text-gray-700 mb-1">Book Link:</label>
+                <input id="link" name="link" type="url" value="{{ old('link') }}" placeholder="https://example.com/book"
+                       class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                @error('link') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
-            
 
-            <div class="input">
-                <input class="btn btn-danger" type="submit" value="Add the Book">
+            <!-- Submit Button -->
+            <div class="text-center pt-4">
+                <input type="submit" value="Add the Book"
+                       class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer">
             </div>
         </form>
     </div>
