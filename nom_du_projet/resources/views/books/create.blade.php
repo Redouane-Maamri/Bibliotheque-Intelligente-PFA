@@ -85,7 +85,7 @@
 
             <!-- Submit Button -->
             <div class="text-center pt-4">
-                <input type="submit" value="Add Book"
+                <input type="submit" value="Add the Book"
                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer">
             </div>
         </form>
