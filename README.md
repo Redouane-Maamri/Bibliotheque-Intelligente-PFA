@@ -2,11 +2,7 @@
 
 Un projet complet de gestion de bibliothèque développé avec **Laravel**, **MySQL** et **Tailwind CSS**, réalisé dans le cadre de mon **Projet de Fin d'Année**. Il permet aux utilisateurs de parcourir et filtrer les livres, et à l'administrateur de gérer les ouvrages via une interface CRUD sécurisée.
 
-![Accueil](https://github.com/user-attachments/assets/d9767576-d41a-4d21-941f-566be00fae6e)
-![Détails du livre](https://github.com/user-attachments/assets/399830d1-f6cf-4416-b4c9-0ba5aa6c0418)
-
 ---
-
 ## 🎯 Fonctionnalités
 
 - 🔐 Authentification utilisateur (inscription, connexion)
